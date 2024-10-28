@@ -54,9 +54,6 @@ public class FruitServiceImpl implements FruitService{
 
     @Override
     public Fruit save(Fruit fruit) {
-        if(fruit.getFruitType() == null || fruit.getPrice()==null || fruit.getName() == null || fruit.getId() == null){
-            throw new PlantException("The data of fruit is not valid" , HttpStatus.BAD_REQUEST);
-        }
         return fruitRepository.save(fruit);
     }
 
@@ -64,10 +61,16 @@ public class FruitServiceImpl implements FruitService{
     public Fruit delete(long id) {
        Optional<Fruit> foundFruit = fruitRepository.findById(id);
        if(foundFruit.isPresent()){
-           fruitRepository.delete(foundFruit.get());
+          fruitRepository.delete(foundFruit.get());
+          return foundFruit.get();
        }
 
        throw new PlantException("There is no fruit with this id" , HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public List<Fruit> getAll() {
+        return fruitRepository.findAll();
     }
 
 
