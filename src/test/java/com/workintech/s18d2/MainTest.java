@@ -147,7 +147,7 @@ class MainTest {
     void testGetByIdFoundFruitService() {
         when(mockFruitRepository.findById(anyLong())).thenReturn(Optional.of(sampleFruitForFruitServiceTest));
 
-        Fruit foundFruit = fruitService.getById(1L);
+        Fruit foundFruit = fruitService.getById(1L).get();
 
         assertNotNull(foundFruit);
         assertEquals(sampleFruitForFruitServiceTest.getName(), foundFruit.getName());
